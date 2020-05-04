@@ -1,0 +1,36 @@
+version: "3.7"
+services:
+  db:
+    image: postgres:11.7
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: bare-example
+    volumes:
+      - ./node-api/pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  node-api:
+    build: ./node-api
+    image: bare-example-multi-stage
+    volumes:
+      - ./node-api:/api-src # Mount the host folder(s) onto the docker container for live development
+      - /api-src/node_modules # Mount the modules in a volume
+    container_name: bare-example-multi-stage-container
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "4000:4000"
+  web:
+    build: ./web
+    image: bare-example-web
+    volumes:
+      - ./web:/web-src
+      - /web-src/node_modules
+    container_name: bare-example-web-container
+    restart: always
+    depends_on:
+      - node-api
+    ports:
+      - "3000:3000"

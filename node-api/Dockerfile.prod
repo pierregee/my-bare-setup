@@ -1,0 +1,26 @@
+# https://nodejs.org/fr/docs/guides/nodejs-docker-webapp/
+
+# stage 1 building the code
+FROM node:12.2-alpine as builder
+WORKDIR /usr/app
+COPY package*.json ./
+# Install dev dependencies
+RUN npm install
+COPY . .
+RUN npm run build
+
+
+# stage 2
+From node:12.2-alpine
+WORKDIR /usr/app
+COPY package*.json ./
+# Install the regular dependencies
+RUN npm install --production 
+
+# Copy the dist from stage 1
+COPY --from=builder /usr/app/dist ./dist
+COPY ormconfig.docker.json ./ormconfig.json
+COPY .env .
+
+EXPOSE 4000
+CMD node dist/src/index.js

@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+  db:
+    image: postgres:11.7
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: bare-example
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  node-api:
+    image: bare-example-multi-stage
+    build:
+      context: ./node-api
+      dockerfile: Dockerfile.prod
+    depends_on:
+      - db
+    ports:
+      - "4000:4000"

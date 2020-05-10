@@ -8,13 +8,12 @@
 // ====================================================
 
 export interface Login_login {
-  __typename: "User";
-  id: string;
-  email: string;
+  __typename: "LoginResponse";
+  accessToken: string;
 }
 
 export interface Login {
-  login: Login_login | null;
+  login: Login_login;
 }
 
 export interface LoginVariables {

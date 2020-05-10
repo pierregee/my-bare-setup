@@ -41,3 +41,11 @@ Downgrade to react-scripts 3.4.0 to work with Docker
 
 Nodemon has this issue on docker
 https://github.com/remy/nodemon#application-isnt-restarting
+
+### Since the tsconfig provided typeorm init is not as complete as it should be, this can be used
+
+npx tsconfig.json
+
+### To update packages
+
+yarn upgrade-interactive --latest

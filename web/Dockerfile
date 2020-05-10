@@ -9,14 +9,14 @@ WORKDIR /web-src
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
 COPY package*.json ./
-RUN npm install
+RUN npm install --silent
 
 # Bundle app source
 COPY . /web-src
-RUN npm install --global typescript 
-RUN npm install --global nodemon
-RUN npm install --global ts-node
-RUN npm install --global react-scripts
+RUN npm install --global typescript --silent
+RUN npm install --global nodemon --silent
+RUN npm install --global ts-node --silent
+RUN npm install --global react-scripts --silent
 
 EXPOSE 3000
 ENV NODE_ENV=development

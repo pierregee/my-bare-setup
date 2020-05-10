@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import useLogin from "../../api/mutations/login";
+import { setAccessToken } from "../../accessToken";
 
 const LoginView = () => {
   const history = useHistory();
@@ -17,8 +18,12 @@ const LoginView = () => {
   };
   const handleLogin = async () => {
     try {
-      await login({ variables: { ...values } });
-      history.push("/me");
+      const response = await login({ variables: { ...values } });
+
+      if (response && response.data) {
+        setAccessToken(response.data.login.accessToken);
+      }
+      history.push("/users");
     } catch (err) {}
   };
 

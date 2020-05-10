@@ -4,15 +4,15 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: Me
+// GraphQL query operation: Users
 // ====================================================
 
-export interface Me_me {
+export interface Users_users {
   __typename: "User";
-  id: string;
+  id: number;
   email: string;
 }
 
-export interface Me {
-  me: Me_me | null;
+export interface Users {
+  users: Users_users[];
 }
